@@ -1,6 +1,6 @@
 = render partial: "layouts/errors", locals: { obj: user }
 
-= form_with model: [:admin, @user], local: true do |f|
+= form_with model: [:admin, user], local: true do |f|
   .form-group
     = f.label :name, "名前", class: "my-2"
     = f.text_field :name , class: "form-control"

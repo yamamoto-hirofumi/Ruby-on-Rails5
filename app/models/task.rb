@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  belongs_to :user
   validates :name, length: { maximum: 30 }, presence: true
   validate :validate_name_not_including_comma
 
