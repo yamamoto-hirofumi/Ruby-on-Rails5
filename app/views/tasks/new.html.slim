@@ -4,12 +4,4 @@ h1 タスクの新規登録
   = link_to "一覧", tasks_path, class: "nav-link"
   
 = render partial: "layouts/errors", locals: { obj: @task}
-
-= form_with model: @task, url: confirm_new_task_path, local: true do |f|
-  .form-group
-    = f.label :name, class: "my-2"
-    = f.text_field :name, class: "form-control", id: "task_name"
-  .form-group
-    = f.label :description, class: "my-2"
-    = f.text_area :description, rows: 5, class: "form-control", id: "task_description"
-  = f.submit "確認", class: "btn btn-primary my-3"
+= render partial: "form", locals: { task: @task}
