@@ -15,23 +15,26 @@ h1 タスク一覧
 
 = link_to "新規登録", new_task_path, class: "btn btn-primary"
 
-.mb-3
-  table.table.table-hover
-    thead.thead-default
+.my-3
+  = paginate @tasks
+  = page_entries_info @tasks
+
+table.table.table-hover
+  thead.thead-default
+    tr
+      th = sort_link(@q, :name, [:name, "created_at desc"], default_order: :desc)
+      th = Task.human_attribute_name(:created_at)
+      th
+  tbody
+    - @tasks.each do |task|
       tr
-        th = sort_link(@q, :name, [:name, "created_at desc"], default_order: :desc)
-        th = Task.human_attribute_name(:created_at)
-        th
-    tbody
-      - @tasks.each do |task|
-        tr
-          td = link_to task.name, task
-          td = task.created_at
-          td
-            = link_to "編集", edit_task_path(task), class: "btn btn-primary"
-            = link_to "削除", task, method: :delete,
-            data: { confirm: "タスク「#{task.name}」を削除してもよろしいですか？"},
-            class: "btn btn-danger mx-3"
+        td = link_to task.name, task
+        td = task.created_at
+        td
+          = link_to "編集", edit_task_path(task), class: "btn btn-primary"
+          = link_to "削除", task, method: :delete,
+          data: { confirm: "タスク「#{task.name}」を削除してもよろしいですか？"},
+          class: "btn btn-danger mx-3"
 = link_to "エクスポート", tasks_path(format: :csv), class: "btn btn-primary mb-3"
 = form_tag import_tasks_path, multipart: true, class: "mb-3" do
   = file_field_tag :file
